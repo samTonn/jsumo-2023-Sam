@@ -1,0 +1,61 @@
+#include <xmotion.h>
+
+// int S1=A5;
+// int S2=4;
+// int S3=2;
+// int S4=1;
+// int S5=0;
+
+int analogs[] = {A5,4,2,1,0};
+
+void setup() {
+  //  pinMode(S1, INPUT);
+  //  pinMode(S2, INPUT);
+  //  pinMode(S3, INPUT);
+  //  pinMode(S4, INPUT);
+  //  pinMode(S5, INPUT);
+   
+  for (int i = 0; i < sizeof(analogs); i++){
+    pinMode(analogs[i], INPUT);
+  }
+
+   Serial.begin(9600); 
+}
+
+int values[5] = {};
+int sensors[] = {1,2,3,4,5};
+
+void loop() {
+
+  // int values[] = {digitalRead(S1),digitalRead(S2),digitalRead(S3),digitalRead(S4),digitalRead(S5)};
+  // int sensors[] = {1,2,3,4,5};
+  
+  // for (int i = 0; i < sizeof(values); i++){
+  //   if (values[i] == 1){
+  //       Serial.println(sensors[i]);
+  //       values[i] = 0;
+  //   }
+  // }
+  irReset();
+  Serial.println(irTest());
+  
+  delay(100); 
+}
+
+
+int irTest() {
+  for (int i = 0; i < sizeof(values); i++){
+    if (values[i] == 1){
+      return sensors[i];
+    }
+  }
+
+}
+
+void irReset(){
+  // values[] = {digitalRead(S1),digitalRead(S2),digitalRead(S3),digitalRead(S4),digitalRead(S5)};
+  for (int i = 0; i < sizeof(values); i++){
+    values[i] = digitalRead(analogs[i]);
+  }
+  
+}
